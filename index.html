@@ -17,7 +17,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
 <div class="app">
 <header class="top">
  <div class="brand"><div class="logo">↗</div><div><div class="eyebrow">Fleet intelligence</div><h1>Monitor 3D · Frota de Carga</h1></div></div>
- <div class="top-actions"><button class="btn" id="exportBtn">⇩ Exportar dados</button><button class="btn primary" id="newInspectionBtn">＋ Nova inspeção</button></div>
+ <div class="top-actions"><button class="btn" id="addVehicleBtn">＋ Novo veículo</button><button class="btn" id="exportBtn">⇩ Exportar dados</button><button class="btn primary" id="newInspectionBtn">＋ Nova inspeção</button></div>
 </header>
 <nav class="nav" aria-label="Navegação principal">
  <button class="active" data-view="overview">Visão geral</button><button data-view="inspections">Inspeções</button><button data-view="maintenance">Manutenção</button>
@@ -27,11 +27,11 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
   <div class="stat"><div class="stat-top"><span>Veículos cadastrados</span><span class="icon">🚛</span></div><strong id="vehicleCount">01</strong><small>Frota demonstrativa</small></div>
   <div class="stat"><div class="stat-top"><span>Pneus / posições</span><span class="icon">◉</span></div><strong id="tireCount">05</strong><small>Posições selecionáveis no esquema</small></div>
   <div class="stat"><div class="stat-top"><span>Alertas abertos</span><span class="icon">⚠</span></div><strong id="alertCount">02</strong><small>Dados de demonstração</small></div>
-  <div class="stat"><div class="stat-top"><span>Inspeções registradas</span><span class="icon">✓</span></div><strong id="inspectionCount">03</strong><small id="lastInspection">Último registro demonstrativo</small></div>
+  <div class="stat"><div class="stat-top"><span>Inspeções registradas</span><span class="icon">✓</span></div><strong id="inspectionCount">00</strong><small id="lastInspection">Nenhuma inspeção registrada por você</small></div>
  </div>
  <div class="layout">
   <section class="panel">
-   <div class="panel-head"><div><h2>Visualização do veículo</h2><div class="muted tiny">Selecione uma roda para consultar os dados</div></div><span class="vehicle-chip">TRK-001 · 6×2 (esquema)</span></div>
+   <div class="panel-head"><div><h2>Visualização do veículo</h2><div class="muted tiny">Selecione uma roda para consultar os dados</div></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><label class="tiny muted" for="vehicleSelect">Veículo</label><select id="vehicleSelect" class="vehicle-chip" aria-label="Selecionar veículo" style="max-width:220px;background:#142b45;color:#a8d6ff;border:1px solid #335477;padding:6px;border-radius:20px"><option value="TRK-001">TRK-001 · Demo</option></select></div></div>
    <div class="truck-stage"><div class="stage-label"><span>VISTA LATERAL INTERATIVA</span><span>Modelo esquemático · não em escala</span></div>
    <svg class="truck-svg" viewBox="0 0 760 360" role="img" aria-label="Ilustração esquemática de caminhão de carga com pneus selecionáveis">
     <defs><linearGradient id="cab" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#39a9ed"/><stop offset="1" stop-color="#17609e"/></linearGradient><linearGradient id="trailer" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#dbe6f0"/><stop offset="1" stop-color="#8fa4ba"/></linearGradient><linearGradient id="glass" x1="0" x2="1"><stop stop-color="#16304b"/><stop offset="1" stop-color="#2d5578"/></linearGradient></defs>
@@ -60,11 +60,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
     <!-- trailer support -->
     <path d="M300 250 V275 M327 250 V275" stroke="#8296aa" stroke-width="7"/>
     <!-- wheels; each tire is clickable -->
-    <g class="tire" data-tire="T1" tabindex="0" role="button" aria-label="Selecionar pneu T1" transform="translate(133 270)"><circle class="outer" r="29"/><circle class="rim" r="17"/><circle class="hub" r="7"/><path d="M0 -14V-8 M14 0H8 M0 14V8 M-14 0H-8" stroke="#e1e9f2" stroke-width="2"/><text y="44">T1</text></g>
-    <g class="tire" data-tire="T2" tabindex="0" role="button" aria-label="Selecionar pneu T2" transform="translate(435 270)"><circle class="outer" r="29"/><circle class="rim" r="17"/><circle class="hub" r="7"/><path d="M0 -14V-8 M14 0H8 M0 14V8 M-14 0H-8" stroke="#e1e9f2" stroke-width="2"/><text y="44">T2</text></g>
-    <g class="tire" data-tire="T3" tabindex="0" role="button" aria-label="Selecionar pneu T3" transform="translate(470 270)"><circle class="outer" r="29"/><circle class="rim" r="17"/><circle class="hub" r="7"/><path d="M0 -14V-8 M14 0H8 M0 14V8 M-14 0H-8" stroke="#e1e9f2" stroke-width="2"/><text y="44">T3</text></g>
-    <g class="tire" data-tire="T4" tabindex="0" role="button" aria-label="Selecionar pneu T4" transform="translate(600 270)"><circle class="outer" r="29"/><circle class="rim" r="17"/><circle class="hub" r="7"/><path d="M0 -14V-8 M14 0H8 M0 14V8 M-14 0H-8" stroke="#e1e9f2" stroke-width="2"/><text y="44">T4</text></g>
-    <g class="tire" data-tire="T5" tabindex="0" role="button" aria-label="Selecionar pneu T5" transform="translate(635 270)"><circle class="outer" r="29"/><circle class="rim" r="17"/><circle class="hub" r="7"/><path d="M0 -14V-8 M14 0H8 M0 14V8 M-14 0H-8" stroke="#e1e9f2" stroke-width="2"/><text y="44">T5</text></g>
+    <g id="tireLayer" aria-label="Posições de pneus geradas conforme a configuração do veículo"></g>
     <!-- headlight and mirrors -->
     <path d="M75 183 L60 178 L60 201 L77 202" fill="#2879b4" stroke="#7fc7f0" stroke-width="2"/><rect x="57" y="180" width="7" height="15" rx="2" fill="#4e7b9d"/>
     <circle cx="75" cy="239" r="4" fill="#ffcf78"/>
@@ -96,16 +92,15 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
   </div>
  </div>
  <div class="lower">
-  <section class="panel"><div class="panel-head"><h2>Alertas e pendências</h2><span class="vehicle-chip" id="alertChip">2 registros demonstrativos</span></div><div class="alert-list" id="alertList">
-   <div class="alert-row"><div class="alert-mark">!</div><div><strong>Inspeção preventiva a programar</strong><p>TRK-001 · Verificar histórico e agenda do veículo.</p></div></div>
-   <div class="alert-row"><div class="alert-mark red">!</div><div><strong>Dados dos sensores indisponíveis</strong><p>Não há sensores reais conectados a esta demonstração.</p></div></div>
+  <section class="panel"><div class="panel-head"><h2>Alertas e pendências</h2><span class="vehicle-chip" id="alertChip">Alertas atuais</span></div><div class="alert-list" id="alertList">
+   <div class="alert-row"><div class="alert-mark">!</div><div><strong>Carregando alertas</strong><p>Os alertas são baseados nas condições cadastradas e nas pendências de manutenção.</p></div></div>
   </div></section>
   <section class="panel"><div class="panel-head"><h2>Histórico de exemplo</h2><span class="muted tiny">Registros fictícios</span></div><div class="history"><div class="bar-chart" aria-label="Gráfico ilustrativo sem dados reais"><div class="bar" style="height:48%"><span>Seg</span></div><div class="bar" style="height:64%"><span>Ter</span></div><div class="bar" style="height:57%"><span>Qua</span></div><div class="bar" style="height:75%"><span>Qui</span></div><div class="bar" style="height:62%"><span>Sex</span></div><div class="bar" style="height:83%"><span>Sáb</span></div><div class="bar" style="height:69%"><span>Dom</span></div></div><div class="chart-note">Gráfico ilustrativo. Não representa medições de pressão, temperatura ou desgaste reais.</div></div></section>
  </div>
 </section>
 <section id="inspections" class="subview panel"><div class="panel-head"><div><h2>Registro de inspeções</h2><div class="muted tiny">Informações salvas neste navegador</div></div><button class="btn primary" id="newInspectionBtn2">＋ Nova inspeção</button></div><div class="inspection-list" id="inspectionHistory"></div></section>
 <section id="maintenance" class="subview panel"><div class="panel-head"><div><h2>Plano de manutenção</h2><div class="muted tiny">Estrutura inicial para organizar serviços</div></div><button class="btn primary" id="newMaintenanceBtn">＋ Nova pendência</button></div><div class="inspection-list" id="maintenanceHistory"></div></section>
-<div class="foot"><span>MONITOR 3D · PROTÓTIPO LOCAL v0.1</span><span>Dados demonstrativos · Não conectado a sensores reais</span></div>
+<div class="foot"><span>MONITOR 3D · PROTÓTIPO v0.2</span><span>Dados manuais/demonstrativos · Sem conexão com sensores reais</span></div>
 </div>
 <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><h2 id="modalTitle">Registrar inspeção</h2><p id="modalDescription">Preencha os dados observados. Não informe valores estimados como se fossem medições reais.</p>
 <form id="inspectionForm"><div class="form-grid">
@@ -114,45 +109,194 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
  <div class="field"><label for="formPressure">Pressão medida (psi)</label><input id="formPressure" type="number" min="0" step=".1" placeholder="Deixe vazio se não mediu"></div>
  <div class="field"><label for="formTemp">Temperatura (°C)</label><input id="formTemp" type="number" step=".1" placeholder="Deixe vazio se não mediu"></div>
  <div class="field"><label for="formTread">Sulcos (mm)</label><input id="formTread" type="number" min="0" step=".1" placeholder="Deixe vazio se não mediu"></div>
- <div class="field"><label for="formCondition">Condição observada</label><select id="formCondition"><option value="Inspecionado">Inspecionado</option><option value="Atenção">Atenção</option><option value="Crítico">Crítico</option><option value="Sem medição">Sem medição técnica</option></select></div>
+ <div class="field"><label for="formCondition">Condição observada</label><select id="formCondition"><option value="Sem dados">Sem dados</option><option value="Dentro dos parâmetros">Dentro dos parâmetros</option><option value="Atenção">Atenção</option><option value="Crítico">Crítico</option></select></div>
  <div class="field wide"><label for="formNotes">Observações</label><textarea id="formNotes" placeholder="Ex.: inspeção visual, danos observados, providência recomendada..."></textarea></div>
  <div class="field wide"><label for="formInspector">Responsável pela inspeção</label><input id="formInspector" placeholder="Nome ou identificação"></div>
  </div><div class="modal-actions"><button type="button" class="btn" id="cancelModal">Cancelar</button><button type="submit" class="btn primary">Salvar inspeção</button></div></form></div></div>
+<div class="modal-backdrop" id="vehicleModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="vehicleModalTitle"><div class="modal"><h2 id="vehicleModalTitle">Cadastrar veículo</h2><p>Cadastre um veículo de demonstração. Os dados ficam armazenados apenas neste navegador.</p><form id="vehicleForm"><div class="form-grid">
+<div class="field"><label for="vehicleId">Código do veículo *</label><input id="vehicleId" required maxlength="20" placeholder="TRK-002"></div>
+<div class="field"><label for="vehiclePlate">Placa</label><input id="vehiclePlate" maxlength="10" placeholder="ABC1D23"></div>
+<div class="field"><label for="vehicleMake">Fabricante</label><input id="vehicleMake" placeholder="Volvo"></div>
+<div class="field"><label for="vehicleModel">Modelo</label><input id="vehicleModel" placeholder="FH 460"></div>
+<div class="field"><label for="vehicleYear">Ano</label><input id="vehicleYear" type="number" min="1950" max="2100" placeholder="2022"></div>
+<div class="field"><label for="vehicleType">Tipo</label><select id="vehicleType"><option value="cavalo_mecanico">Cavalo mecânico</option><option value="rigido">Caminhão rígido</option><option value="semirreboque">Semirreboque</option></select></div>
+<div class="field"><label for="vehicleConfig">Configuração</label><select id="vehicleConfig"><option value="4x2">4×2</option><option value="6x2" selected>6×2</option><option value="6x4">6×4</option></select></div>
+<div class="field"><label for="vehicleKm">Odômetro (km)</label><input id="vehicleKm" type="number" min="0" step="1" placeholder="Deixe vazio se desconhecido"></div>
+<div class="field wide"><label for="vehicleNotes">Observações</label><textarea id="vehicleNotes" placeholder="Informações adicionais"></textarea></div>
+</div><div class="modal-actions"><button type="button" class="btn" id="cancelVehicleModal">Cancelar</button><button type="submit" class="btn primary">Cadastrar veículo</button></div></form></div></div>
 <div class="toast" id="toast" role="status"></div>
 <script>
-const tireIds=["T1","T2","T3","T4","T5"];
-const initialTires={
- T1:{position:"Eixo dianteiro · lado esquerdo",pressure:"",temp:"",tread:"",condition:"Sem medição",brand:"Não cadastrado",km:"Não cadastrada",date:"",notes:""},
- T2:{position:"Eixo traseiro · lado esquerdo",pressure:"",temp:"",tread:"",condition:"Atenção",brand:"Não cadastrado",km:"Não cadastrada",date:"",notes:""},
- T3:{position:"Eixo traseiro · lado direito interno",pressure:"",temp:"",tread:"",condition:"Inspecionado",brand:"Não cadastrado",km:"Não cadastrada",date:"",notes:""},
- T4:{position:"Eixo traseiro · lado direito externo",pressure:"",temp:"",tread:"",condition:"Crítico",brand:"Não cadastrado",km:"Não cadastrada",date:"",notes:""},
- T5:{position:"Eixo traseiro auxiliar · lado direito",pressure:"",temp:"",tread:"",condition:"Sem medição",brand:"Não cadastrado",km:"Não cadastrada",date:"",notes:""}
-};
-let state={selected:"T2",tires:structuredClone(initialTires),inspections:[],maintenance:[]};
-try{const saved=localStorage.getItem("monitor3d_frota_v1");if(saved){const parsed=JSON.parse(saved);state={...state,...parsed,tires:{...structuredClone(initialTires),...(parsed.tires||{})}}}}catch(e){}
+
+const STORAGE_KEY="monitor3d_frota_v2";
 const $=id=>document.getElementById(id);
-function persist(){try{localStorage.setItem("monitor3d_frota_v1",JSON.stringify(state))}catch(e){}}
-function fmtDate(v){if(!v)return "Não registrada";const [y,m,d]=v.split("-");return `${d}/${m}/${y}`}
-function statusClass(c){if(c==="Crítico")return "bad";if(c==="Atenção")return "warn";if(c==="Inspecionado")return "ok";return "neutral"}
-function showToast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2400)}
-function renderTire(){const id=state.selected,t=state.tires[id];$("tireName").textContent="Pneu "+id;$("tirePosition").textContent=t.position;$("pressureValue").textContent=t.pressure!==""?`${t.pressure} psi`:"—";$("pressureNote").textContent=t.pressure!==""?"Medição registrada manualmente":"Sem leitura real conectada";$("tempValue").textContent=t.temp!==""?`${t.temp} °C`:"—";$("treadValue").textContent=t.tread!==""?`${t.tread} mm`:"—";$("dateValue").textContent=fmtDate(t.date);$("dateNote").textContent=t.date?"Última inspeção registrada":"Cadastro demonstrativo";$("idValue").textContent=id;$("brandValue").textContent=t.brand;$("kmValue").textContent=t.km;$("dataState").textContent=t.pressure!==""||t.temp!==""||t.tread!==""?"Registro manual":"Sem sensor conectado";const s=$("componentStatus");s.className="status "+statusClass(t.condition);s.innerHTML='<span class="dot"></span>'+t.condition;s.title="Condição registrada; não equivale a diagnóstico automático";document.querySelectorAll(".tire").forEach(el=>{el.classList.toggle("selected",el.dataset.tire===id);el.classList.toggle("alert",state.tires[el.dataset.tire].condition==="Atenção");el.classList.toggle("critical",state.tires[el.dataset.tire].condition==="Crítico")});$("formTire").value=id}
-function renderStats(){$("tireCount").textContent=String(tireIds.length).padStart(2,"0");$("inspectionCount").textContent=String(state.inspections.length+3).padStart(2,"0");$("lastInspection").textContent=state.inspections.length?"Último registro: "+fmtDate(state.inspections[state.inspections.length-1].date):"Último registro demonstrativo";$("alertCount").textContent=String(2+state.maintenance.filter(m=>!m.done).length).padStart(2,"0")}
-function renderInspectionHistory(){const el=$("inspectionHistory");if(!state.inspections.length){el.innerHTML='<div class="muted tiny">Nenhuma inspeção criada por você ainda. Use “Nova inspeção” para adicionar o primeiro registro.</div>';return}el.innerHTML=[...state.inspections].reverse().map(i=>`<div class="inspection-item"><div><strong>${escapeHtml(i.tire)} · ${escapeHtml(i.condition)}</strong><div class="muted tiny">${fmtDate(i.date)} · ${escapeHtml(i.inspector||"Responsável não informado")}</div><div class="muted tiny">${escapeHtml(i.notes||"Sem observações")}</div></div><span class="status ${statusClass(i.condition)}">${escapeHtml(i.condition)}</span></div>`).join("")}
-function renderMaintenance(){const el=$("maintenanceHistory");if(!state.maintenance.length){el.innerHTML='<div class="muted tiny">Nenhuma pendência cadastrada. Adicione um item para organizar a próxima revisão.</div>';return}el.innerHTML=state.maintenance.map((m,index)=>`<div class="inspection-item"><div><strong>${escapeHtml(m.title)}</strong><div class="muted tiny">${escapeHtml(m.vehicle)} · Prazo: ${fmtDate(m.date)||"Não definido"}</div><div class="muted tiny">${escapeHtml(m.notes||"Sem detalhes")}</div></div><button class="btn" data-done="${index}">${m.done?"Concluída":"Marcar concluída"}</button></div>`).join("");el.querySelectorAll("[data-done]").forEach(b=>b.onclick=()=>{state.maintenance[+b.dataset.done].done=!state.maintenance[+b.dataset.done].done;persist();renderAll();showToast("Manutenção atualizada")})}
-function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function renderAll(){renderTire();renderStats();renderInspectionHistory();renderMaintenance();persist()}
-function openInspection(tire=state.selected){$("formTire").value=tire;$("formDate").value=new Date().toISOString().slice(0,10);$("formPressure").value="";$("formTemp").value="";$("formTread").value="";$("formCondition").value="Inspecionado";$("formNotes").value="";$("formInspector").value="";$("modalTitle").textContent="Registrar inspeção";$("modalDescription").textContent="Registre apenas medições realmente realizadas. Campos vazios serão mantidos como não medidos.";$("modalBackdrop").classList.add("open")}
-function closeModal(){$("modalBackdrop").classList.remove("open")}
-document.querySelectorAll(".tire").forEach(el=>{const choose=()=>{state.selected=el.dataset.tire;renderTire()};el.addEventListener("click",choose);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();choose()}})});
+const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+const uid=prefix=>`${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,7)}`;
+const escapeHtml=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const configAxles={
+ "4x2":[{id:"A1",role:"dianteiro",dual:false},{id:"A2",role:"traseiro motriz",dual:false}],
+ "6x2":[{id:"A1",role:"dianteiro",dual:false},{id:"A2",role:"traseiro motriz",dual:true},{id:"A3",role:"traseiro auxiliar",dual:false}],
+ "6x4":[{id:"A1",role:"dianteiro",dual:false},{id:"A2",role:"traseiro motriz 1",dual:true},{id:"A3",role:"traseiro motriz 2",dual:true}]
+};
+function buildAxles(config){
+ return (configAxles[config]||configAxles["6x2"]).map(a=>({...a,positions:["left","right"].flatMap(side=>a.dual?[{id:`${a.id}-${side}-outer`,side,dual:true,layer:"outer"},{id:`${a.id}-${side}-inner`,side,dual:true,layer:"inner"}]:[{id:`${a.id}-${side}`,side,dual:false,layer:"single"}])}));
+}
+function makeVehicle(data){
+ const v={id:data.id,plate:data.plate||"",fleetCode:data.fleetCode||data.id,manufacturer:data.manufacturer||"",model:data.model||"",year:data.year||"",type:data.type||"cavalo_mecanico",axleConfig:data.axleConfig||"6x2",odometerKm:data.odometerKm??null,hourmeterH:data.hourmeterH??null,dataSource:data.dataSource||"manual",createdAt:data.createdAt||todayISO(),notes:data.notes||"",modules:data.modules||{engine:{enabled:true,dataAvailable:false},brakes:{enabled:true,dataAvailable:false},electrical:{enabled:true,dataAvailable:false},fluids:{enabled:true,dataAvailable:false},emissions:{enabled:false,dataAvailable:false}},axles:[],tirePositions:[]};
+ v.axles=buildAxles(v.axleConfig);
+ v.tirePositions=v.axles.flatMap(a=>a.positions.map(p=>({...p,axleId:a.id,axleRole:a.role,positionId:p.id})));
+ return v;
+}
+function makeInitialState(){
+ const v=makeVehicle({id:"TRK-001",fleetCode:"F-001",manufacturer:"Não cadastrado",model:"Caminhão demonstrativo",year:"",type:"cavalo_mecanico",axleConfig:"6x2",dataSource:"demo",notes:"Veículo esquemático. Não representa telemetria real."});
+ const tires={};
+ v.tirePositions.forEach((p,i)=>{const id=`P-${String(i+1).padStart(3,"0")}`;tires[id]={id,brand:"Não cadastrado",model:"",size:"",dot:"",status:"mounted",vehicleId:v.id,positionId:p.positionId,installedAt:"",installedKm:null,createdAt:todayISO(),notes:"",pressure:null,temp:null,tread:null,lastInspectionId:null};p.tireId=id});
+ return {schemaVersion:2,selectedVehicleId:v.id,selectedTireId:v.tirePositions[0]?.tireId||null,vehicles:[v],tires,inspections:[],maintenance:[],mountHistory:[],events:[]};
+}
+let state=makeInitialState();
+let storageNotice="";
+try{
+ const raw=localStorage.getItem(STORAGE_KEY);
+ if(raw){const parsed=JSON.parse(raw);if(parsed.schemaVersion===2&&Array.isArray(parsed.vehicles)&&parsed.tires){state={...state,...parsed};if(!state.vehicles.some(v=>v.id===state.selectedVehicleId))state.selectedVehicleId=state.vehicles[0]?.id;}}
+ else if(localStorage.getItem("monitor3d_frota_v1"))storageNotice="Há dados de uma versão anterior neste navegador. Eles foram preservados e não foram misturados automaticamente com o novo modelo.";
+}catch(e){storageNotice="Não foi possível ler os dados locais. A demonstração foi aberta sem importar dados antigos."}
+function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){showToast("Não foi possível salvar. Exporte um backup e verifique o armazenamento do navegador.");}}
+function showToast(msg){const el=$("toast");el.textContent=msg;el.classList.add("show");clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>el.classList.remove("show"),3000)}
+function fmtDate(v){if(!v)return "Não registrada";const [y,m,d]=String(v).split("-");return y&&m&&d?`${d}/${m}/${y}`:"Não registrada"}
+function currentVehicle(){return state.vehicles.find(v=>v.id===state.selectedVehicleId)||state.vehicles[0]}
+function currentTire(){return state.tires[state.selectedTireId]}
+function currentPosition(t){const v=state.vehicles.find(x=>x.id===t?.vehicleId);return v?.tirePositions.find(p=>p.tireId===t.id)}
+function latestInspection(tireId,vehicleId=state.selectedVehicleId){return [...state.inspections].reverse().find(i=>i.tireId===tireId&&i.vehicleId===vehicleId)}
+function conditionOf(tire){const rec=latestInspection(tire.id,tire.vehicleId);return rec?.condition||"Sem dados"}
+function statusClass(c){if(c==="Crítico")return "bad";if(c==="Atenção")return "warn";if(c==="Dentro dos parâmetros")return "ok";return "neutral"}
+function currentVehicleInspections(){return state.inspections.filter(i=>i.vehicleId===state.selectedVehicleId)}
+function currentVehicleMaintenance(){return state.maintenance.filter(m=>m.vehicleId===state.selectedVehicleId)}
+function mountedTires(v=currentVehicle()){return Object.values(state.tires).filter(t=>t.status==="mounted"&&t.vehicleId===v.id&&v.tirePositions.some(p=>p.tireId===t.id))}
+function currentAlerts(){
+ const v=currentVehicle();if(!v)return [];
+ const items=[];
+ mountedTires(v).forEach(t=>{const c=conditionOf(t);if(c==="Atenção"||c==="Crítico"){const p=currentPosition(t);items.push({id:`tire-${t.id}`,level:c==="Crítico"?"critical":"warning",title:`${c} · Pneu ${t.id}`,description:`${v.id} · ${p?.axleRole||"Posição não identificada"}. Consulte a inspeção registrada.`})}});
+ currentVehicleMaintenance().filter(m=>!["concluída","adiada"].includes(m.status)).forEach(m=>items.push({id:`maint-${m.id}`,level:"warning",title:`Manutenção pendente · ${m.title}`,description:`${v.id} · Prazo: ${m.date?fmtDate(m.date):"Não definido"}`}));
+ return items;
+}
+function tireCount(v=currentVehicle()){return mountedTires(v).length}
+function renderVehicleSelector(){
+ const sel=$("vehicleSelect");sel.innerHTML=state.vehicles.map(v=>`<option value="${escapeHtml(v.id)}">${escapeHtml(v.id)} · ${escapeHtml(v.model||v.manufacturer||v.axleConfig)}</option>`).join("");sel.value=state.selectedVehicleId;
+ const v=currentVehicle();document.querySelector(".vehicle-chip")?.replaceChildren(document.createTextNode(`${v.id} · ${v.axleConfig.replace("x","×")} (esquema)`));
+ $("vehicleCount").textContent=String(state.vehicles.length).padStart(2,"0");
+}
+function renderTruck(){
+ const v=currentVehicle();const layer=$("tireLayer");if(!v||!layer)return;
+ const positions=v.tirePositions;const axleOrder=v.axles.map(a=>a.id);
+ const xByAxle={A1:133,A2:v.axleConfig==="4x2"?585:435,A3:v.axleConfig==="6x2"?600:555};
+ const groupsByAxle={};
+ v.axles.forEach(a=>{groupsByAxle[a.id]=positions.filter(p=>p.axleId===a.id)});
+ const y=270;let markup="";
+ positions.forEach((p,index)=>{
+   const axleIndex=axleOrder.indexOf(p.axleId);
+   const base=xByAxle[p.axleId]??(400+axleIndex*80);
+   let x=base;
+   if(p.dual)x=base+(p.layer==="inner"?-13:13);
+   const sideOffset=p.side==="right"?-4:4;
+   x+=sideOffset;
+   const t=state.tires[p.tireId];if(!t)return;
+   const cond=conditionOf(t);
+   const classes=["tire",state.selectedTireId===t.id?"selected":"",cond==="Atenção"?"alert":"",cond==="Crítico"?"critical":""].filter(Boolean).join(" ");
+   markup+=`<g class="${classes}" data-tire="${escapeHtml(t.id)}" tabindex="0" role="button" aria-label="Selecionar pneu ${escapeHtml(t.id)}" transform="translate(${x} ${y})"><circle class="outer" r="${p.dual?21:26}"/><circle class="rim" r="${p.dual?12:15}"/><circle class="hub" r="6"/><text y="39">${escapeHtml(t.id.replace("P-",""))}</text></g>`;
+ });
+ layer.innerHTML=markup;
+ layer.querySelectorAll(".tire").forEach(el=>{const choose=()=>{state.selectedTireId=el.dataset.tire;renderAll(false)};el.addEventListener("click",choose);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();choose()}})});
+ const vlabel=document.querySelector(".stage-label span:last-child");if(vlabel)vlabel.textContent=`${v.axleConfig.replace("x","×")} · ${positions.length} posições físicas · esquema`;
+}
+function renderTire(){
+ const t=currentTire(),v=currentVehicle();if(!t||!v)return;
+ const p=currentPosition(t);const c=conditionOf(t);const rec=latestInspection(t.id,v.id);
+ $("tireName").textContent=`Pneu ${t.id}`;$("tirePosition").textContent=p?`${p.axleRole} · ${p.side==="left"?"lado esquerdo":"lado direito"}${p.dual?` · ${p.layer==="inner"?"interno":"externo"}`:""}`:"Pneu fora de montagem";
+ $("pressureValue").textContent=t.pressure!==null&&t.pressure!==""?`${t.pressure} psi`:"—";
+ $("pressureNote").textContent=t.pressure!==null&&t.pressure!==""?(rec?.dataSource==="manual"?"Medição manual registrada":"Origem da leitura registrada"):"Sem medição disponível";
+ $("tempValue").textContent=t.temp!==null&&t.temp!==""?`${t.temp} °C`:"—";
+ $("treadValue").textContent=t.tread!==null&&t.tread!==""?`${t.tread} mm`:"—";
+ $("dateValue").textContent=fmtDate(rec?.date);$("dateNote").textContent=rec?"Última inspeção registrada":"Nenhuma inspeção registrada";
+ $("idValue").textContent=t.id;$("brandValue").textContent=[t.brand,t.model].filter(x=>x&&x!=="Não cadastrado").join(" / ")||"Não cadastrado";$("kmValue").textContent=t.installedKm!==null&&t.installedKm!==""?`${t.installedKm} km`:"Não cadastrada";
+ $("dataState").textContent=rec?(rec.dataSource==="manual"?"Registro manual":"Origem registrada"):"Sem dados";
+ const st=$("componentStatus");st.className="status "+statusClass(c);st.innerHTML=`<span class="dot"></span>${escapeHtml(c)}`;st.title="Estado derivado da última inspeção válida; não é diagnóstico automático";
+ $("formTire").innerHTML=mountedTires(v).map(x=>`<option value="${escapeHtml(x.id)}">Pneu ${escapeHtml(x.id)}</option>`).join("");$("formTire").value=t.id;
+ document.querySelectorAll(".component-title .vehicle-chip").forEach(el=>el.textContent=v.id);
+}
+function renderStats(){
+ const v=currentVehicle();if(!v)return;
+ $("tireCount").textContent=String(tireCount(v)).padStart(2,"0");
+ const ins=currentVehicleInspections();$("inspectionCount").textContent=String(ins.length).padStart(2,"0");
+ const latest=ins[ins.length-1];$("lastInspection").textContent=latest?`Último registro: ${fmtDate(latest.date)}`:"Nenhuma inspeção registrada";
+ const alerts=currentAlerts();$("alertCount").textContent=String(alerts.length).padStart(2,"0");
+}
+function renderInspectionHistory(){
+ const el=$("inspectionHistory"),items=currentVehicleInspections();
+ if(!items.length){el.innerHTML='<div class="muted tiny">Nenhuma inspeção registrada para este veículo.</div>';return}
+ el.innerHTML=[...items].reverse().map(i=>`<div class="inspection-item"><div><strong>${escapeHtml(i.tireId)} · ${escapeHtml(i.condition)}</strong><div class="muted tiny">${fmtDate(i.date)} · ${escapeHtml(i.inspector||"Responsável não informado")}</div><div class="muted tiny">${escapeHtml(i.notes||"Sem observações")}</div><div class="muted tiny">Origem: ${escapeHtml(i.dataSource||"manual")}</div></div><span class="status ${statusClass(i.condition)}">${escapeHtml(i.condition)}</span></div>`).join("");
+}
+function renderMaintenance(){
+ const el=$("maintenanceHistory"),items=currentVehicleMaintenance();
+ if(!items.length){el.innerHTML='<div class="muted tiny">Nenhuma manutenção cadastrada para este veículo.</div>';return}
+ el.innerHTML=items.map(m=>`<div class="inspection-item"><div><strong>${escapeHtml(m.title)}</strong><div class="muted tiny">${escapeHtml(m.vehicleId)} · Prazo: ${fmtDate(m.date)}</div><div class="muted tiny">${escapeHtml(m.notes||"Sem detalhes")} · Estado: ${escapeHtml(m.status)}</div></div><button class="btn" data-done="${escapeHtml(m.id)}">${m.status==="concluída"?"Concluída":"Marcar concluída"}</button></div>`).join("");
+ el.querySelectorAll("[data-done]").forEach(b=>b.onclick=()=>{const m=state.maintenance.find(x=>x.id===b.dataset.done);if(m)m.status="concluída";persist();renderAll();showToast("Manutenção atualizada")});
+}
+function renderAlerts(){
+ const el=$("alertList"),items=currentAlerts();
+ el.innerHTML=items.length?items.map(a=>`<div class="alert-row"><div class="alert-mark ${a.level==="critical"?"red":""}">!</div><div><strong>${escapeHtml(a.title)}</strong><p>${escapeHtml(a.description)}</p></div></div>`).join(""):'<div class="muted tiny">Nenhum alerta derivado dos registros atuais. Isso não substitui uma inspeção física.</div>';
+ const chip=$("alertChip");if(chip)chip.textContent=`${items.length} alerta(s) atual(is)`;
+}
+function renderAll(save=true){renderVehicleSelector();renderTruck();renderTire();renderStats();renderAlerts();renderInspectionHistory();renderMaintenance();if(save)persist()}
+function openInspection(){
+ const t=currentTire();if(!t){showToast("Selecione um pneu montado antes de registrar a inspeção.");return}
+ $("formDate").value=todayISO();$("formPressure").value="";$("formTemp").value="";$("formTread").value="";$("formCondition").value="Sem dados";$("formNotes").value="";$("formInspector").value="";
+ $("modalTitle").textContent=`Inspeção · ${t.id}`;$("modalDescription").textContent="Informe somente medições realizadas. Sem medições, a condição permanecerá como Sem dados.";
+ $("modalBackdrop").classList.add("open");
+}
+function closeInspectionModal(){$("modalBackdrop").classList.remove("open")}
+function openVehicleModal(){$("vehicleForm").reset();$("vehicleConfig").value="6x2";$("vehicleModalBackdrop").classList.add("open")}
+function closeVehicleModal(){$("vehicleModalBackdrop").classList.remove("open")}
+function addVehicle(data){
+ if(state.vehicles.some(v=>v.id.toLowerCase()===data.id.toLowerCase()))throw new Error("Já existe um veículo com esse código.");
+ const v=makeVehicle(data);
+ let n=1;
+ v.tirePositions.forEach(p=>{const id=uid("PNEU");state.tires[id]={id,brand:"Não cadastrado",model:"",size:"",dot:"",status:"mounted",vehicleId:v.id,positionId:p.positionId,installedAt:"",installedKm:null,createdAt:todayISO(),notes:"",pressure:null,temp:null,tread:null,lastInspectionId:null};p.tireId=id;state.mountHistory.push({id:uid("MONT"),tireId:id,vehicleId:v.id,positionId:p.positionId,startDate:todayISO(),endDate:null,startKm:v.odometerKm});n++});
+ state.vehicles.push(v);state.selectedVehicleId=v.id;state.selectedTireId=v.tirePositions[0]?.tireId||null;
+}
+$("vehicleSelect").addEventListener("change",e=>{state.selectedVehicleId=e.target.value;const v=currentVehicle();state.selectedTireId=v?.tirePositions[0]?.tireId||null;renderAll()});
+$("addVehicleBtn").onclick=openVehicleModal;$("cancelVehicleModal").onclick=closeVehicleModal;
+$("vehicleModalBackdrop").addEventListener("click",e=>{if(e.target===$("vehicleModalBackdrop"))closeVehicleModal()});
+$("vehicleForm").addEventListener("submit",e=>{
+ e.preventDefault();const data={id:$("vehicleId").value.trim(),plate:$("vehiclePlate").value.trim(),manufacturer:$("vehicleMake").value.trim(),model:$("vehicleModel").value.trim(),year:$("vehicleYear").value?Number($("vehicleYear").value):"",type:$("vehicleType").value,axleConfig:$("vehicleConfig").value,odometerKm:$("vehicleKm").value?Number($("vehicleKm").value):null,notes:$("vehicleNotes").value.trim(),dataSource:"manual"};
+ if(!data.id){showToast("Informe um código para o veículo.");return}
+ try{addVehicle(data);closeVehicleModal();renderAll();showToast("Veículo cadastrado neste navegador.")}catch(err){showToast(err.message)}
+});
 document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".subview").forEach(v=>v.classList.toggle("active",v.id===b.dataset.view))}));
-$("inspectSelectedBtn").onclick=()=>openInspection();$("newInspectionBtn").onclick=()=>openInspection();$("newInspectionBtn2").onclick=()=>openInspection();$("cancelModal").onclick=closeModal;$("modalBackdrop").addEventListener("click",e=>{if(e.target===$("modalBackdrop"))closeModal()});
-$("inspectionForm").addEventListener("submit",e=>{e.preventDefault();const id=$("formTire").value;const rec={tire:id,date:$("formDate").value,pressure:$("formPressure").value,temp:$("formTemp").value,tread:$("formTread").value,condition:$("formCondition").value,notes:$("formNotes").value.trim(),inspector:$("formInspector").value.trim()};state.inspections.push(rec);const t=state.tires[id];t.date=rec.date;t.pressure=rec.pressure;t.temp=rec.temp;t.tread=rec.tread;t.condition=rec.condition;t.notes=rec.notes;state.selected=id;closeModal();renderAll();showToast("Inspeção salva neste navegador");});
-$("selectAllBtn").onclick=()=>{state.selected="T1";renderTire();showToast("Selecione qualquer pneu no desenho")};
-$("resetBtn").onclick=()=>{if(confirm("Restaurar os dados demonstrativos? Os registros criados neste navegador serão apagados.")){state={selected:"T2",tires:structuredClone(initialTires),inspections:[],maintenance:[]};renderAll();showToast("Demonstração restaurada")}};
-$("vehicleInfoBtn").onclick=()=>alert("TRK-001 · Caminhão de carga esquemático\\nConfiguração visual: 6×2 aproximada\\nQuilometragem: não cadastrada\\nSensores: não conectados\\nEste protótipo não representa um veículo real.");
-$("newMaintenanceBtn").onclick=()=>{const title=prompt("Qual serviço ou pendência deseja registrar?");if(!title||!title.trim())return;const date=prompt("Prazo (AAAA-MM-DD), ou deixe vazio:")||"";const notes=prompt("Observações (opcional):")||"";state.maintenance.push({title:title.trim(),date,notes,vehicle:"TRK-001",done:false});renderAll();showToast("Pendência adicionada")};
-$("exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify({exportadoEm:new Date().toISOString(),aviso:"Dados locais do protótipo; não são telemetria real.",...state},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="monitor_3d_frota_dados.json";a.click();URL.revokeObjectURL(a.href);showToast("Arquivo de dados exportado")};
-renderAll();
+$("inspectSelectedBtn").onclick=openInspection;$("newInspectionBtn").onclick=openInspection;$("newInspectionBtn2").onclick=openInspection;$("cancelModal").onclick=closeInspectionModal;$("modalBackdrop").addEventListener("click",e=>{if(e.target===$("modalBackdrop"))closeInspectionModal()});
+$("inspectionForm").addEventListener("submit",e=>{
+ e.preventDefault();const tireId=$("formTire").value,t=state.tires[tireId];if(!t||t.vehicleId!==state.selectedVehicleId){showToast("Selecione um pneu válido do veículo atual.");return}
+ const pressure=$("formPressure").value===""?null:Number($("formPressure").value),temp=$("formTemp").value===""?null:Number($("formTemp").value),tread=$("formTread").value===""?null:Number($("formTread").value),notes=$("formNotes").value.trim(),requested=$("formCondition").value;
+ if(pressure===null&&temp===null&&tread===null&&!notes){showToast("Informe ao menos uma medição ou uma observação. Nenhum registro foi salvo.");return}
+ let condition=requested;if(condition==="Sem dados")condition="Sem dados";
+ const rec={id:uid("INSP"),vehicleId:state.selectedVehicleId,tireId,date:$("formDate").value,pressure,temp,tread,condition,notes,inspector:$("formInspector").value.trim(),dataSource:"manual",createdAt:new Date().toISOString()};
+ state.inspections.push(rec);t.pressure=pressure;t.temp=temp;t.tread=tread;t.lastInspectionId=rec.id;state.selectedTireId=tireId;closeInspectionModal();renderAll();showToast("Inspeção salva neste navegador.");
+});
+$("selectAllBtn").onclick=()=>showToast(`Este veículo possui ${tireCount()} pneus montados. Selecione cada roda no esquema.`);
+$("resetBtn").onclick=()=>{
+ if(!confirm("Restaurar a demonstração? Isso apagará os registros da versão atual neste navegador. Exporte os dados antes, se necessário."))return;
+ state=makeInitialState();persist();renderAll(false);showToast("Demonstração restaurada.");
+};
+$("vehicleInfoBtn").onclick=()=>{const v=currentVehicle();showToast(`${v.id} · ${v.model||"Modelo não informado"} · Configuração ${v.axleConfig}. Dados demonstrativos/manuais; sem sensores conectados.`)};
+$("newMaintenanceBtn").onclick=()=>{
+ const title=window.prompt("Qual serviço ou pendência deseja registrar?");if(!title||!title.trim())return;
+ const date=window.prompt("Prazo (AAAA-MM-DD), ou deixe vazio:")||"",notes=window.prompt("Observações (opcional):")||"";
+ state.maintenance.push({id:uid("MAN"),vehicleId:state.selectedVehicleId,title:title.trim(),date,notes,status:"pendente",priority:"média",createdAt:new Date().toISOString()});renderAll();showToast("Manutenção adicionada.");
+};
+$("exportBtn").onclick=()=>{
+ const payload={schemaVersion:2,exportedAt:new Date().toISOString(),aviso:"Dados locais do protótipo; não representam telemetria real.",dataSourceSummary:{manual:state.inspections.length,vehicles:state.vehicles.length},state};
+ const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="monitor_3d_frota_v2.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);showToast("Backup JSON exportado.");
+};
+renderAll(false);if(storageNotice)showToast(storageNotice);
+
 </script>
 </body>
 </html>
